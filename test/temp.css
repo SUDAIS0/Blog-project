@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #e0f7fa; /* Light cyan background for a fresh look */
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333; /* Dark background for the header */
+    color: #fff; /* White text color */
+    padding: 10px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center; /* Center align navigation items */
+}
+
+nav ul li {
+    display: inline-block; /* Display items in a line */
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #fff; /* White text color for navigation links */
+    text-decoration: none;
+    display: flex; /* Use flexbox to align items */
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+}
+
+nav ul li i {
+    font-size: 24px; /* Size of the icon */
+}
+
+nav ul li span {
+    margin-top: 5px; /* Space between the icon and the text */
+    color: #fff; /* White text color */
+}
+
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff; /* White background for the main content */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.post {
+    margin-bottom: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333; /* Dark background for the footer */
+    color: #fff; /* White text color */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.about-container {
+    display: flex; /* Use flex to position items in a row */
+    justify-content: space-between; /* Space out items within the container */
+    align-items: flex-start; /* Align items at the top */
+    margin: 20px; /* Add some space around the container */
+    padding: 20px;
+    background-color: #ffffff; /* White background for the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More pronounced shadow for depth */
+    border-radius: 15px; /* Rounded corners for a smoother look */
+    border: 2px solid #009688; /* Teal border for a splash of color */
+}
+
+/* Profile picture styles */
+.profile-img {
+    border-radius: 50%; /* Makes the image round */
+    object-fit: cover; /* Ensures the image covers the entire circular area */
+    width: 250px; /* Explicitly set width */
+    height: 250px; /* Explicitly set height */
+    border: 4px solid #009688; /* Teal border around the picture */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow for 3D effect */
+}
+
+/* Bio section styles */
+.bio {
+    max-width: 600px; /* Limit the width of the bio section */
+    margin-left: 20px; /* Space between the picture and bio */
+    color: #333; /* Dark color for the text */
+}
+
+.bio h1 {
+    color: #00796b; /* Teal color for the heading */
+    border-bottom: 2px solid #00796b; /* Underline heading with teal */
+    padding-bottom: 10px; /* Space below heading */
+    margin-bottom: 20px; /* Space below heading */
+}
+
+.bio p {
+    color: #555; /* Slightly lighter color for the text */
+    line-height: 1.6; /* Add some line height for readability */
+    font-size: 1.1em; /* Slightly larger text for emphasis */
+}

@@ -1,0 +1,28 @@
+header {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: #f8f9fa; /* Adjust the background color as needed */
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav li {
+    margin: 0 15px; /* Adjust the spacing between items as needed */
+}
+
+nav a {
+    text-decoration: none;
+    color: #333; /* Adjust the text color as needed */
+    display: flex;
+    align-items: center;
+}
+
+nav i {
+    margin-right: 5px; /* Adjust the spacing between icon and text as needed */
+}

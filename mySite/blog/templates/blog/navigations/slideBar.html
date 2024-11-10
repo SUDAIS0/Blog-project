@@ -1,0 +1,38 @@
+<nav class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-light-grey" style="display:none;z-index:5; height:100%; width:250px;" id="mySidebar">
+    <button onclick="closeSidebar()" class="w3-bar-item w3-button w3-large">Close &times;</button>
+    
+    <div class="sidebar-container">
+      <!-- Scrollable Section 1 -->
+      <div class="scroll-section w3-container w3-padding">
+        <h4>All Authors:</h4>
+        {% for author in allAuthors %}
+        <a href="{% url "authorAllPostsUrl" author=author.fullName|lower %}" class="w3-bar-item w3-button">{{author.fullName}}</a>
+        {% endfor %}
+      </div>
+  
+      
+      <!-- Scrollable Section 2 -->
+      <div class="scroll-section w3-container w3-padding">
+        <h4>All Tags:</h4>
+        {% for tag in allTags %}
+        <a href="{% url "postsByTagUrl" tag=tag|lower %}" class="w3-bar-item w3-button">{{tag}}</a>
+        {% endfor %}
+      </div>
+    </div>
+</nav>
+
+<!-- Button to open the slide panel -->
+<div class="w3-container">
+  <button class="w3-button w3-black w3-xlarge" onclick="openSidebar()">☰</button>
+</div>
+
+<!-- slide panel functionality -->
+<script>
+  function openSidebar() {
+      document.getElementById("mySidebar").style.display = "block";
+  }
+  
+  function closeSidebar() {
+      document.getElementById("mySidebar").style.display = "none";
+  }
+</script>

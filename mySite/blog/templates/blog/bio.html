@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block pageTitle %}
+About Me!
+{% endblock pageTitle %}
+
+{% block content %}
+        <!-- Header -->
+       <!-- Container for Image and About Me Section Side-by-Side -->
+    <div class="w3-container w3-margin" style="display: flex; align-items: flex-start;">
+        <!-- Image on the Left -->
+        <img src="{% static 'blog/images/sudais.jpg' %}" alt="Sudais's Picture" class="w3-margin" style="width:300px; height:300px; border-radius: 20px;">
+        <!-- About Me Section on the Right -->
+        <div class="w3-card-4 w3-margin w3-white w3-row" style="border-radius: 20px;">
+            <div class="w3-container w3-padding">
+                <div class="w3-center"></div>
+                
+                <!-- Bio Section -->
+                <div class="w3-container">
+                    <h2 class="w3-text-grey"  style="text-decoration: underline;">SUDAIS</h2>
+                    <br>
+                    <p>Hello,</p>
+                    <p>I'm a passionate computer science student at Riphah International University with a strong interest in web development. I enjoy working on projects that involve creativity and problem-solving. Currently, I'm focusing on developing a blog website using Django, which allows me to apply my skills in Python, HTML, and CSS effectively.</p>
+                    <p>When I'm not coding, I enjoy reading tech blogs, exploring new technologies, and learning about the latest trends in the web development world. My goal is to become a full-stack developer and work on impactful projects that can benefit users worldwide.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Skills, Hobbies, Projects Section (Below the Bio Section) -->
+        <div class="w3-row">
+            {% if skills %}
+            <div class="w3-col l4 s12">
+                <div class="w3-card w3-margin">
+                    <div class="w3-container w3-padding">
+                        <h4>Skills</h4>
+                    </div>
+                    <div class="w3-container">
+                        <ul class="w3-ul">
+                            {% for skill in skills %}
+                            <li class="w3-padding-16">{{ skill }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+    
+            {% if hobbies %}
+            <div class="w3-col l4 s12">
+                <div class="w3-card w3-margin">
+                    <div class="w3-container w3-padding">
+                        <h4>Hobbies</h4>
+                    </div>
+                    <div class="w3-container">
+                        <ul class="w3-ul">
+                            {% for hobby in hobbies %}
+                            <li class="w3-padding-16">{{ hobby }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+    
+            {% if projects %}
+            <div class="w3-col l4 s12">
+                <div class="w3-card w3-margin">
+                    <div class="w3-container w3-padding">
+                        <h4>Projects</h4>
+                    </div>
+                    <div class="w3-container">
+                        <ul class="w3-ul">
+                            {% for project in projects %}
+                            <li class="w3-padding-16">{{ project }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block footer %}
+{% include "blog/navigations/footer.html" with goToWebsite=True %}
+{% endblock footer %}

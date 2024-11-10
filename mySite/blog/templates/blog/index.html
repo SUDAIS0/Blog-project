@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block pageTitle %}
+Home Page
+{% endblock pageTitle %}
+
+{% block cssLinks %}
+<link rel="stylesheet" href="{% static "blog/navigations/slideBar.css" %}">
+{% endblock cssLinks %}
+
+{% block slidePanel %}
+{% include "blog/navigations/slideBar.html" %}
+{% endblock slidePanel %}
+
+{% block header %}
+{% include "blog/navigations/header.html" %}
+{% endblock header %}
+
+{% block content %}
+    <!-- Grid -->
+    <div class="w3-row">
+        
+      <!-- Blog entries -->
+      
+        <!-- Blog entry -->
+            <div class="w3-card-4 w3-margin w3-white">
+                <div class="w3-container w3-padding">
+                    <h2>Welcome To My Blogs Site!</h2>
+                </div>
+            <div class="w3-container">
+            </div>
+
+            <div class="w3-container">
+                <p> Hello there! I'm <a href="{% url "bioUrl" %}" target="_blank">Sudais</a>, a passionate computer science student and aspiring web developer. This blog is a place where I share my journey, projects, and insights into the world of technology, web development, and beyond.</p>
+                <p>
+                    Whether you're here to learn something new, get inspired, or simply browse through some interesting topics, I'm glad to have you. Feel free to explore my latest posts, projects, and more. I hope you find something valuable and engaging during your visit!
+                </p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block footer %}
+{% include "blog/navigations/footer.html" %}
+{% endblock footer %}

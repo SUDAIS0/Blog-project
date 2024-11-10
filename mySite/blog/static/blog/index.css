@@ -1,0 +1,45 @@
+/* Welcome Page Styles */
+.welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* Ensures the content is centered vertically */
+    padding: 20px;
+    background-color: #f4f4f4; /* Light background for a welcoming feel */
+}
+
+.welcome-section {
+    text-align: center;
+    max-width: 800px;
+    padding: 40px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 2px solid #333; /* Border for definition */
+}
+
+.welcome-section h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.welcome-section p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.explore-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333; /* Darker color for contrast */
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease; /* Smooth transition effect */
+}
+
+.explore-button:hover {
+    background-color: #555; /* Lighter shade on hover */
+}

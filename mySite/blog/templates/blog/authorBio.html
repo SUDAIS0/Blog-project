@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block pageTitle %}
+Author's All Posts
+{% endblock pageTitle %}
+
+{% block cssLinks %}
+<link rel="stylesheet" href="{% static "blog/navigations/slideBar.css" %}">
+{% endblock cssLinks %}
+
+{% block slidePanel %}
+{% include "blog/navigations/slideBar.html" %}
+{% endblock slidePanel %}
+
+{% block header %}
+{% include "blog/navigations/header.html" with title='About Me' %}
+{% endblock header %}
+
+{% block content %}
+<!-- Grid -->
+<div class="w3-row">
+
+  
+  <!-- Author Bio -->
+  <div class="w3-card w3-margin">
+    <div class="w3-container w3-padding">
+        <h3>Author's Bio </h3>
+        <h4>Name: "{{author.fullName|title}}"</h4>
+    </div>
+    <ul class="w3-ul w3-white">
+        <li>
+            <p>{{author.about}}</p>
+            <p><a href="{% url "authorAllPostsUrl" author=author.fullName%}">Go To Author's Posts</a></p>
+        </li>
+    </ul>
+</div>
+
+ 
+ 
+ 
+
+<!-- END GRID -->
+</div><br>
+
+<!-- END w3-content -->
+</div>
+{% endblock content %}
+
+{% block footer %}
+{% include "blog/navigations/footer.html" %}
+{% endblock footer %}

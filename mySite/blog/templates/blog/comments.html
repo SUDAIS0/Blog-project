@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block pageTitle %}
+Post Comments
+{% endblock pageTitle %}
+
+{% block cssLinks %}
+<link rel="stylesheet" href="{% static "blog/navigations/slideBar.css" %}">
+{% endblock cssLinks %}
+
+{% block slidePanel %}
+{% include "blog/navigations/slideBar.html" %}
+{% endblock slidePanel %}
+
+{% block header %}
+{% include "blog/navigations/header.html" %}
+{% endblock header %}
+
+{% block content %}
+
+<h1>Comments: </h1>
+{% if postComments %}
+<ul>
+    {% for comment in postComments %}
+        <li>User Name: {{comment.userName}}
+            Comment: {{comment.comment}}
+            Replies: {{comment.reply}}
+            Date: {{comment.date}}</li> 
+    {% endfor %}
+</ul>
+{% else %}
+<p>There are no comments for this posts.</p>
+{% endif %}
+
+{% endblock content %}

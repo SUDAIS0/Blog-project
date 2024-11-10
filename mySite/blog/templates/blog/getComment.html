@@ -1,0 +1,13 @@
+<form action="" method="POST">
+    {% csrf_token %}
+    
+    {{ form.userName.label_tag }}  <!-- Label for User Name -->
+    {{ form.userName }}             <!-- User Name Input -->
+    {{ form.userName.errors }}      <!-- Error message for User Name -->
+
+    {{ form.comment.label_tag }}    <!-- Label for Comment -->
+    {{ form.comment }}               <!-- Comment Input -->
+    {{ form.comment.errors }}        <!-- Error message for Comment -->    
+
+    <button type="submit" class="w3-button w3-black w3-margin-top">Submit</button>
+</form>

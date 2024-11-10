@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block pageTitle %}
+Post Detail
+{% endblock pageTitle %}
+
+{% block cssLinks %}
+<link rel="stylesheet" href="{% static "blog/navigations/slideBar.css" %}">
+<style>
+  .comment-section {
+      display: none; /* Initially hide the comment section */
+      margin-top: 10px; /* Add some space above the comment section */
+  }
+</style>
+<style>
+  .reply-section {
+      display: none; /* Initially hide the comment section */
+      margin-top: 10px; /* Add some space above the comment section */
+  }
+</style>
+<!-- Scrollable comment section  -->
+<style>
+  .comments-container {
+    max-height: 400px; /* Adjust height as needed to show 4 comments */
+    overflow-y: auto;
+  }
+</style>
+{% endblock cssLinks %}
+
+{% block slidePanel %}
+{% include "blog/navigations/slideBar.html" %}
+{% endblock slidePanel %}
+
+{% block header %}
+{% include "blog/navigations/header.html" %}
+{% endblock header %}
+
+{% block content %}
+<!-- Grid -->
+<div class="w3-row">
+
+<!-- Blog entries -->
+<div class="w3-col l8 s12">
+  <!-- Blog entry -->
+  <div class="w3-card-4 w3-margin w3-white">
+    <img src={{post.imageName}} alt="Nature" style="width:100%">
+    <div class="w3-container">
+      <h3><b>{{post.blogTitle}}</b></h3>
+      <h5>{{post.excerpt}}</h5>
+      <span class="w3-opacity">{{post.date}}</span>
+    </div>
+
+    <div class="w3-container">
+      <p>{{post.content}}</p>
+    </div>
+
+    <div class="w3-row">
+        <div class="w3-col m4 w3-hide-small">
+          <p>
+            <button class="w3-button w3-padding-large w3-white w3-border" onclick="toggleComments()">
+                <b>Comments </b> <span class="w3-tag">{{totallComments}}</span>
+            </button>
+        </p>
+        
+        <div class="comment-section" id="commentSection">
+            {% include "blog/getComment.html" %}
+            <div id="commentDisplay" class="w3-margin-top"></div>
+        </div>
+        </div>
+      </div>  
+      </div>    
+
+    <div class="w3-card-4 w3-margin w3-white">
+      <div class="w3-container">
+      <h4>Comments</h4>
+    </div>
+      {% if postComments %}
+      <ul class="comments-container">
+        {% for comment in postComments %}
+          <li class="w3-padding">
+            <h6>{{ comment.userName }} <span class="w3-opacity">{{ comment.date }}</span></h6>
+            <p>{{ comment.comment }}</p>
+
+            
+            <div class="w3-row">
+              <div class="w3-col m4 w3-hide-small">
+                <p>
+                  <button class="w3-button w3-small" onclick="toggleReply()">Reply to {{comment.userName}}</button>
+              </p>
+              
+              <div class="reply-section" id="replySection">
+                  {% include "blog/getComment.html" %}
+                  <div id="replyDisplay" class="w3-margin-top"></div>
+              </div>
+            
+            {% if comment.replies.all %}
+              <ul>
+                {% for reply in comment.replies.all %}
+                  <li class="w3-padding">
+                    <h6>Reply by: {{ reply.userName }} <span class="w3-opacity">{{ reply.date }}</span></h6>
+                    <p>{{ reply.comment }}</p>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+    <p>There are no comments for this post yet.</p>
+    {% endif %}
+    </div>
+
+    </div>
+  
+  <hr>
+<!-- Introduction menu -->
+<div class="w3-col l4">
+  <!-- About Card -->
+  <div class="w3-card w3-margin w3-margin-top">
+    <div class="w3-container w3-padding">
+        <h4>Author</h4>
+      </div>
+    <div class="w3-container w3-white">
+        {% if post.author %}
+      <h4><b><a href="{% url "authorBioUrl" authorName=post.author.fullName%}">{{post.author.fullName}}</a></b></h4>
+      <a href="mailto:{{post.author.email}}"><p>{{post.author.email}}</p></a>
+      {% else %}
+      <p>Sorry, couldn't find the author.</p>
+      <p>The Author of this blog may be removed by site owner or removed him/herself from the site.</p>
+      {% endif %}
+    </div>
+  </div><hr>
+   
+  <!-- Labels / tags -->
+  <div class="w3-card w3-margin">
+    <div class="w3-container w3-padding">
+      <h4>Tags</h4>
+    </div>
+    <div class="w3-container w3-white">
+    <p>
+        {% for tag in post.captions.all %}
+        <a href="{% url "postsByTagUrl" tag=tag|lower %}"><span class="w3-tag w3-light-grey w3-small w3-margin-bottom">{{tag}}</span></a>
+        {% endfor %}
+    </p>
+    </div>
+  </div>
+{% if post.author %}
+<!-- Posts -->
+ <div class="w3-card w3-margin">
+    <div class="w3-container w3-padding">
+      <h4>Posts By {{ post.author.fullName }}</h4>
+    </div>
+    <ul class="w3-ul w3-hoverable w3-white">
+        {% for posts in otherPosts %}
+        <a href="{% url "postDetailUrl" slug=posts.slug %}">
+        <li class="w3-padding-16">
+        {% comment %} <img src="/w3images/workshop.jpg" alt="Image" class="w3-left w3-margin-right" style="width:50px">{% endcomment %}
+        <span class="w3-large">{{posts.blogTitle}}</span><br>
+        <span>{{ posts.excerpt }}</span> 
+      </li>
+    </a>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+<!-- END Introduction Menu -->
+</div>
+
+<!-- END GRID -->
+</div>
+
+{% block js %}
+<script>
+  function toggleComments() {
+      const commentSection = document.getElementById('commentSection');
+      commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function submitComment() {
+    const form = document.querySelector('form'); // Get the form element
+
+    // Trigger form submission
+    if (form.checkValidity()) { // Check if the form is valid
+        form.submit(); // Submit the form
+    } else {
+        alert("Please fill out all fields before submitting.");
+    }
+  }
+  function toggleReply() {
+    const replySection = document.getElementById('replySection');
+    replySection.style.display = replySection.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function submitReply() {
+    const form = document.querySelector('form'); // Get the reply form for the specific comment
+
+    // Trigger form submission
+    if (form.checkValidity()) { // Check if the form is valid
+        form.submit(); // Submit the form
+    } else {
+        alert("Please fill out all fields before submitting your reply.");
+    }
+}
+
+
+</script>
+{% endblock js %}
+
+{% endblock content %}
+
+{% block footer %}
+{% include "blog/navigations/footer.html" %}
+{% endblock footer %}
+
