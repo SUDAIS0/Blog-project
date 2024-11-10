@@ -14,7 +14,7 @@ This is a Django-based blog application that features a dynamic content manageme
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/SUDAIS0/Blog-project/tree/main
+   git clone (https://github.com/SUDAIS0/Blog-project/tree/main)
    cd <repository-folder>
 
 3. Install dependencies:
