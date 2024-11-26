@@ -7,8 +7,8 @@ from django.views.generic import ListView
 
 # from django.core.cache import cache
 # Create your views here.
-from .forms import PostCommentsForm
-from .models import Post, Author, Tag, Comments
+from .forms import PostCommentsForm, UserForm
+from .models import Post, Author, Tag, Comments, User
 
 
 biodata = {
@@ -220,4 +220,42 @@ class AuthorBioView(GetAuthorInfoView):
             'allTags' : allTags
         })
         return context
+
+
+class RegisterView(View):
+
+    def get(self, request):
+
+        return render(request, 'blog/registration.html', {
+        'form' : UserForm(),
+        'register' : True
+    })
+
+    def post(self, request):
+
+        form = UserForm(request.POST)
+
+        if form.is_valid():
+            formRecord = User(
+                first_name = form.cleaned_data['first_name'],
+                last_name = form.cleaned_data['last_name'],
+                username = form.cleaned_data['username'],
+                email = form.cleaned_data['email']
+            )
+            password = form.cleaned_data['password']
+            print(password)
+            passwordd = form.cleaned_data['password_confirm']
+            print(passwordd)
+            formRecord.set_password(password)
+            formRecord.save()
+
+            return redirect('homeUrl')
     
+        return render(request, 'blog/registration.html', {
+            'form' : form,
+            'register' : True
+        })
+
+        
+
+

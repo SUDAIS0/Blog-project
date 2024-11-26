@@ -2,6 +2,9 @@ from django.db import models
 
 from django.utils.text import slugify
 from django.core.validators import MaxLengthValidator, MinLengthValidator, RegexValidator
+
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 class Tag(models.Model):
@@ -63,33 +66,10 @@ class Post(models.Model):
 
         return f"{self.id} Blog Title = {self.blogTitle}\nBlog Author = {self.author}\nExcerpt = {self.excerpt}\nDate = {self.date}\nSlug = {self.slug}\Captions = {captions},\nContent = {self.content}\nComments = {comments}"
     
-# class AuthorRegistration(models.Model):
 
-#     firstName = models.CharField(max_length=30)
-#     lastName = models.CharField(max_length=30)
-#     userName = models.CharField(max_length=50, unique=True)
-#     email = models.EmailField(max_length=254, unique=True)
-#     about = models.TextField(null=True)
-#     profilePicture = models.ImageField(blank=True, upload_to=None, height_field=None, width_field=None, max_length=None)
+class User(User):
+
+    def __str__(self):
+        return f"{self.username} ({self.email})"
     
-#     def fullName(self):
-#         return f"{self.firstName} {self.lastName}"
-
-#     def __str__(self):
-#         return f"{self.firstName}"
-
-# class UserRegistration(model.Model):
-
-#     firstName = models.CharField(max_length=30)
-#     lastName = models.CharField(max_length=30)
-#     password = models.CharField(max_length=50)
-#     userName = models.CharField(max_length=50, unique=True, validators=[RegexValidator(
-#         regex=r'^^[_a-zA-Z0-9]+(_{1,2}[a-zA-Z0-9]*)*$',
-#         message='Enter Valid User Name (Its should contain letters and numbers with only one or two consective underscores.)',
-#         code='Invalid User Name'
-#     )])
-#     email = models.EmailField(max_length=254, unique=True)
-#     age = models.IntegerField(validators=[MinLengthValidator(6)])
-
-
 

@@ -1,31 +1,55 @@
 <head>
     <!-- Other head elements -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        nav a {
+            text-decoration: none;
+            color: dark;
+            align-items: center;
+        }
+        nav i {
+            font-size: 25px; 
+            margin-right: 50px;
+        }
+        
+        /* Style for the login/registration link */
+        .auth-links {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 16px;
+        }
+        .auth-links a {
+            text-decoration: none;
+            color: #4CAF50;  /* Green color for the link */
+            margin-left: 20px;
+        }
+        .auth-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
-<style>
-    nav a {
-        text-decoration: none;
-        color: dark
-        align-items: center;
-    }
-    nav i {
-        font-size: 25px; 
-        margin-right: 50px;
-    }
-</style>
 
 <!-- Header -->
 <header class="w3-container w3-center w3-padding-32"> 
     <h1><b>MY BLOG</b></h1>
-    <p>Welcome to the blog of <span class="w3-tag"><a href="{% url "bioUrl" %}" target="_blank">Sudais</a></span></p>
+    <p>Welcome to the blog of <span class="w3-tag"><a href="{% url 'bioUrl' %}" target="_blank">Sudais</a></span></p>
+
+    <!-- Navigation Links -->
     <nav>
         <a href="{% url 'homeUrl' %}">
             <i class="fas fa-home"></i>
         </a>
-        
-        <a href="{% url "allpostsUrl" %}">
+        <a href="{% url 'allpostsUrl' %}">
             <i class="fas fa-file-alt"></i>
         </a>
-    
     </nav>
+
+    {% if not register %}
+    <!-- Authentication Links (Login/Registration) -->
+    <div class="auth-links">
+        <a href="" style="text-decoration: none; color: black; margin-left: 20px;">Login</a>
+        <a href="{% url "regURL" %}"style="text-decoration: none; color: black; margin-left: 20px;">Register</a>
+    </div>
+    {% endif %}
 </header>
