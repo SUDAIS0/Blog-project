@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block pageTitle %}
+Account Settings
+{% endblock pageTitle %}
+
+{% block slidePanel %}
+{% include "blog/navigations/slideBar.html" %}
+{% endblock slidePanel %}
+
+{% block header %}
+{% include "blog/navigations/header.html" %}
+{% endblock header %}
+
+{% block content %}
+
+<div class="w3-container w3-card-4 w3-light-grey w3-padding-32" style="max-width: 500px; margin-top: 50px; margin-left: auto; margin-right: auto; border-radius: 16px;">
+    
+    <h2 class="w3-center">Account Settings</h2>
+    
+    <form action="" method="POST">
+        {% csrf_token %}
+    
+        <!-- First Name Field -->
+        <div style="margin-top: 16px;">
+            <label for="id_first_name">First Name</label>
+            <input class="w3-input w3-border" type="first_name" id="id_first_name" name="first_name" value="{{ form.first_name.value|default:'' }}" required>
+            {% for error in form.first_name.errors %}
+                <div class="w3-text-red">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <!-- Last_name Field -->
+        <div style="margin-top: 16px;">
+            <label for="id_last">Last Name</label>
+            <input class="w3-input w3-border" type="last_name" id="id_last_name" name="last_name" value="{{ form.last_name.value|default:'' }}" required>
+            {% for error in form.last_name.errors %}
+                <div class="w3-text-red">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <!-- Email Field -->
+        <div style="margin-top: 16px;">
+            <label for="id_email">Email</label>
+            <input class="w3-input w3-border" type="email" id="id_email" name="email" value="{{ form.email.value|default:'' }}" required>
+            {% for error in form.email.errors %}
+                <div class="w3-text-red">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <!-- Username Field -->
+        <div style="margin-top: 16px;">
+            <label for="id_username">Username</label>
+            <input class="w3-input w3-border" type="text" id="id_username" name="username" value="{{ form.username.value|default:'' }}" required>
+            {% for error in form.username.errors %}
+                <div class="w3-text-red">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+
+        <!-- Password Field -->
+        <div style="margin-top: 16px;">
+            <label for="id_password">Password</label>
+            <input class="w3-input w3-border" type="password" id="id_password" name="password">
+        </div>
+
+        <!-- Password Confirm Field -->
+        <div style="margin-top: 16px;">
+            <label for="id_password_confirm">Confirm Password</label>
+            <input class="w3-input w3-border" type="password" id="id_password_confirm" name="password_confirm">
+        </div>
+
+        <button type="submit" class="w3-button w3-blue w3-block w3-margin-bottom" style="margin-top: 16px;">Update Account</button>
+    </form>
+
+    {% if success_message %}
+        <p class="w3-center w3-text-green">{{ success_message }}</p>
+    {% endif %}
+    
+    {% if error_message %}
+        <p class="w3-center w3-text-red">{{ error_message }}</p>
+    {% endif %}
+
+    <p class="w3-center"><a href="">Back to Dashboard</a></p>
+</div>
+
+{% endblock content %}
+
+{% block footer %}
+{% include "blog/navigations/footer.html" %}
+{% endblock footer %}

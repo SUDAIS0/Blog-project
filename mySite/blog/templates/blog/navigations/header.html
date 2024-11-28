@@ -12,7 +12,7 @@
             margin-right: 50px;
         }
         
-        /* Style for the login/registration link */
+        /* Style for the authentication links */
         .auth-links {
             position: absolute;
             top: 16px;
@@ -26,6 +26,10 @@
         }
         .auth-links a:hover {
             text-decoration: underline;
+        }
+        .auth-links span {
+            color: black;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -45,11 +49,15 @@
         </a>
     </nav>
 
-    {% if not regLog %}
-    <!-- Authentication Links (Login/Registration) -->
+    <!-- Authentication Links -->
     <div class="auth-links">
-        <a href="{% url "loginURL" %}" style="text-decoration: none; color: black; margin-left: 20px;">Login</a>
-        <a href="{% url "registerURL" %}"style="text-decoration: none; color: black; margin-left: 20px;">Register</a>
+        {% if user.is_authenticated %}
+            <span>Welcome, {{ user.username }}</span>
+            <a href="{% url "accSettingsURL" %}" style="text-decoration: none; color: black; margin-left: 20px;"><i class="fas fa-cog"></i></a>
+            <a href="{% url "logoutURL" pageUrlName=request.path%}" style="text-decoration: none; color: black; margin-left: 20px;"><i class="fas fa-sign-out-alt"></i></a>
+        {% else %}
+            <a href="{% url "loginURL" %}" style="text-decoration: none; color: black; margin-left: 20px;">Login</a>
+            <a href="{% url "registerURL" %}"style="text-decoration: none; color: black; margin-left: 20px;">Register</a>
+        {% endif %}
     </div>
-    {% endif %}
 </header>

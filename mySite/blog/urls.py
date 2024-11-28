@@ -10,5 +10,7 @@ urlpatterns = [
     path('all-posts/<str:author>', views.AuthorAllPostView.as_view(), name='authorAllPostsUrl'),
     path('author-bio/<str:authorName>', views.AuthorBioView.as_view(), name='authorBioUrl'),
     path('registraion', views.RegisterView.as_view(), name='registerURL'),
-    path('login', views.LogInView.as_view(), name='loginURL')
+    path('login', views.LogInView.as_view(), name='loginURL'),
+    path('logout/<path:pageUrlName>', views.logoutView, name="logoutURL"),
+    path('account-settings', views.AccountSettingView.as_view(), name='accSettingsURL')
 ]

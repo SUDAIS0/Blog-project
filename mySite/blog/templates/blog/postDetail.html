@@ -55,7 +55,7 @@ Post Detail
       <p>{{post.content}}</p>
     </div>
 
-    <div class="w3-row">
+    {% comment %} <div class="w3-row">
         <div class="w3-col m4 w3-hide-small">
           <p>
             <button class="w3-button w3-padding-large w3-white w3-border" onclick="toggleComments()">
@@ -63,12 +63,12 @@ Post Detail
             </button>
         </p>
         
-        <div class="comment-section" id="commentSection">
+        <div class="comment-section" id="commentSection"> {% endcomment %}
             {% include "blog/getComment.html" %}
-            <div id="commentDisplay" class="w3-margin-top"></div>
+            {% comment %} <div id="commentDisplay" class="w3-margin-top"></div>
         </div>
         </div>
-      </div>  
+      </div>   {% endcomment %}
       </div>    
 
     <div class="w3-card-4 w3-margin w3-white">

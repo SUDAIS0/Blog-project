@@ -1,9 +1,17 @@
+{% if user.is_authenticated %}
+<div class="w3-row">
+    <div class="w3-col m4 w3-hide-small">
+      <p>
+        <button class="w3-button w3-padding-large w3-white w3-border" onclick="toggleComments()">
+            <b>Comments </b> <span class="w3-tag">{{totallComments}}</span>
+        </button>
+    </p>
+    
+    <div class="comment-section" id="commentSection">
+        
+        
 <form action="" method="POST">
     {% csrf_token %}
-    
-    {{ form.userName.label_tag }}  <!-- Label for User Name -->
-    {{ form.userName }}             <!-- User Name Input -->
-    {{ form.userName.errors }}      <!-- Error message for User Name -->
 
     {{ form.comment.label_tag }}    <!-- Label for Comment -->
     {{ form.comment }}               <!-- Comment Input -->
@@ -11,3 +19,92 @@
 
     <button type="submit" class="w3-button w3-black w3-margin-top">Submit</button>
 </form>
+
+<div id="commentDisplay" class="w3-margin-top"></div>
+    </div>
+    </div>
+  </div>
+{% else %}
+<!-- Trigger/Open The Modal -->
+<button id="loginModalBtn" class="w3-button w3-padding-large w3-white w3-border">
+    <b>Comments </b> <span class="w3-tag">{{totallComments}}</span>
+</button>
+
+<!-- The Modal -->
+<div id="loginModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content" style="max-width: 400px; margin-top: 50px; margin-left: auto; margin-right: auto; border-radius: 16px;">
+        <span class="close">&times;</span>
+        <p>You must be logged in to comment.</p>
+        <p>Please <a href="{% url 'loginURL' %}">log in</a> to continue.</p>
+    </div>
+</div>
+{% endif %}
+
+<!-- CSS for Modal -->
+<style>
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+
+<!-- JavaScript for Modal -->
+<script>
+    // Get the modal
+    var modal = document.getElementById("loginModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("loginModalBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>

@@ -7,12 +7,16 @@ from django.views.generic import ListView
 
 # from django.core.cache import cache
 # Create your views here.
-from .forms import PostCommentsForm, UserForm
+from .forms import PostCommentsForm, UserForm, AccountSettingForm
 from .models import Post, Author, Tag, Comments, User
 
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.contrib import messages
 
 
 biodata = {
@@ -137,10 +141,8 @@ class PostDetailView(View, GetAuthorAndTagView):
         
         if form.is_valid():
 
-            # if form.cleaned_data.get("temp"):
-            #     return HttpResponse("Done")
             formRecord = Comments(
-                userName=form.cleaned_data['userName'],  # Use cleaned_data for validated data
+                userName= request.user.username,  # Use cleaned_data for validated data
                 comment=form.cleaned_data['comment'],    # Use cleaned_data for validated data
                 post=post
             )
@@ -287,6 +289,7 @@ class LogInView(View):
 
             if user is not None:
                 login(request, user)
+                # messages.success(request, "Your are logged in.")
                 return redirect(self.redirect_field_name)
             
         return render(request,self.template_name, {
@@ -294,3 +297,62 @@ class LogInView(View):
             'regLog' : True
         })
 
+def logoutView(request, pageUrlName):
+
+    logout(request)
+    try:
+        return redirect(pageUrlName)
+    except:
+        return redirect('homeUrl')
+
+
+class AccountSettingView(LoginRequiredMixin, View):
+    template_name = 'blog/accountSetting.html'
+    redirect_field_name = 'homeUrl'
+    form_class = AccountSettingForm
+
+    def handle_no_permission(self):
+        return redirect('homeUrl')
+
+    def get(self, request):
+        userData = request.user
+        form = self.form_class(data={
+            'first_name' : user.first_name,
+            'last_name' : user.last_name,
+            'email' : user.email,
+            'username' : user.username,
+        })   
+
+        return render(request, self.template_name, {'form':form, 'regLog':True})
+
+    def post(self, request):
+        form = self.form_class(data=request.POST)
+
+        if form.is_valid():
+
+            userData = request.userData
+            flag = False
+            user = User.objects.get(username=self.infoData['username'])
+
+            if form.cleaned_data['first_name'] != user.first-name:
+                user.first_name = form.cleaned_data['first_name']
+                flag = True
+            if form.cleaned_data['last_name'] != user.last_name:
+                user.last_name = form.cleaned_data['last_name']
+                flag = True
+            if form.cleaned_data['email'] != user.email:
+                user.email = form.cleaned_data['email']
+                flag = True
+            if form.cleaned_data['username'] != user.username:
+                user.username = form.cleaned_data['username']
+                flag = True
+            if not user.check_password(form.cleaned_data['password']):
+                user.set_password(form.cleaned_data['password'])
+                flag = True
+            if flag:
+                user.save()
+
+            return redirect('homeUrl')
+
+        return render(request, self.template_name, {'form':form, 'regLog':True})
+                
