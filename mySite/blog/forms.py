@@ -3,6 +3,7 @@ from django import forms
 from .models import Comments, User
 from django.core.exceptions import ValidationError
 import re
+import dns.resolver         # For email domain validation
 
 class PostCommentsForm(forms.ModelForm):
     
@@ -30,6 +31,7 @@ class UserForm(forms.ModelForm):
 
     password = forms.CharField(widget=forms.PasswordInput, min_length=8, required=True, help_text="Password must be at least 8 characters long, include at least one uppercase letter, one symbol, and one digit.")
     password_confirm = forms.CharField(widget=forms.PasswordInput, required=True, help_text="Confirm your password")
+    
 
     class Meta:
         model = User
@@ -69,3 +71,13 @@ class UserForm(forms.ModelForm):
             self.add_error('password', "Password must include at least one symbol.")
 
         return cleaned_data
+    
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        try:
+            domain = email.split('@')[1]
+            dns.resolver.resolve(domain, 'MX')
+        except (dns.resolver.NoAnswer, dns.resolver.NXDOMAIN):
+            raise ValidationError("The email domain does not exist or is not capable of receiving emails.")
+        return email
+

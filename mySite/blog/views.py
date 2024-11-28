@@ -10,6 +10,10 @@ from django.views.generic import ListView
 from .forms import PostCommentsForm, UserForm
 from .models import Post, Author, Tag, Comments, User
 
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+
 
 biodata = {
     'skills': ['Python & Django',
@@ -228,7 +232,7 @@ class RegisterView(View):
 
         return render(request, 'blog/registration.html', {
         'form' : UserForm(),
-        'register' : True
+        'regLog' : True
     })
 
     def post(self, request):
@@ -253,9 +257,40 @@ class RegisterView(View):
     
         return render(request, 'blog/registration.html', {
             'form' : form,
-            'register' : True
+            'regLog' : True
         })
 
-        
 
+class LogInView(View):
+    template_name = 'blog/login.html'
+    form_class = AuthenticationForm
+    redirect_field_name = 'homeUrl'
+
+    def get(self, request):
+        
+        # if self.request.user.is_authenticated:
+        #     return redirect('homeUrl')
+        
+        form = self.form_class
+        return render(request, self.template_name, {
+            'form': form,
+            'regLog':True
+         })
+
+    def post(self, request):
+        form = self.form_class(data=self.request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect(self.redirect_field_name)
+            
+        return render(request,self.template_name, {
+            "form" : form,
+            'regLog' : True
+        })
 

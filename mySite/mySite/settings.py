@@ -130,10 +130,4 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
   
-
-# CACHES = {
-#     'default' :{
-#         'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-#         'LOCATION': '127.0.0.1:8000',
-#     }
-# }
+# SESSION_COOKIE_AGE = 120      # By default it is 2 weeks.(If you awnt to set by yourself set ins seconds.)

@@ -45,11 +45,11 @@
         </a>
     </nav>
 
-    {% if not register %}
+    {% if not regLog %}
     <!-- Authentication Links (Login/Registration) -->
     <div class="auth-links">
-        <a href="" style="text-decoration: none; color: black; margin-left: 20px;">Login</a>
-        <a href="{% url "regURL" %}"style="text-decoration: none; color: black; margin-left: 20px;">Register</a>
+        <a href="{% url "loginURL" %}" style="text-decoration: none; color: black; margin-left: 20px;">Login</a>
+        <a href="{% url "registerURL" %}"style="text-decoration: none; color: black; margin-left: 20px;">Register</a>
     </div>
     {% endif %}
 </header>
